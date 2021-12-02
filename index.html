@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>Tic / Tac / Toe</h1>
+        <h4>Current turn: <span class="turn"></span><h4>
+      </header>
+    <!--   Board displayed - Row and Column data to hopefully use as coordinates later   -->
+      <div class="board">
+        <div data-row="1" data-column="1" class="square"></div>
+        <div data-row="1" data-column="2" class="square"></div>
+        <div data-row="1" data-column="3" class="square"></div>
+        <div data-row="2" data-column="1" class="square"></div>
+        <div data-row="2" data-column="2" class="square"></div>
+        <div data-row="2" data-column="3" class="square"></div>
+        <div data-row="3" data-column="1" class="square"></div>
+        <div data-row="3" data-column="2" class="square"></div>
+        <div data-row="3" data-column="3" class="square"></div>
+      </div>
+    <!--   Result displayed -->
+      <h2 class="game-result"></h2>
+    <!-- Reset button -->
+      <div class="button-wrapper">
+        <button id="reset-btn"> Reset </button>
+      </div>
+</body>
+</html>
