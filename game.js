@@ -3,6 +3,7 @@ let playerX = "X";
 let playerO = "O";
 
 const WIN_MESSAGE = "wins!";
+const DRAW_MESSAGE = "It's a draw. Nobody wins."
 
 // Variables for gameplay
 var allBoxes = document.querySelectorAll('.square');
@@ -11,8 +12,8 @@ var turnDisplay = document.querySelector('.turn');
 var advice = document.querySelector('#advice');
 var resetButton = document.querySelector('#reset-btn');
 
+// modal variables
 var modal = document.getElementById("myModal");
-var btn = document.getElementById("myBtn");
 var span = document.getElementsByClassName("close")[0];
 
 
@@ -39,20 +40,19 @@ function handleClick(event) {
     let clickedRow = Number(clickedSquare.dataset.row);
     let clickedColumn = Number(clickedSquare.dataset.column);
     if (clickedSquare.textContent == "" && currentPlayer % 2 !== 0) {
-      advice.textContent = "";
-      
-      boardArray[clickedRow-1][clickedColumn-1] = playerX;
-      clickedSquare.textContent = playerX;
-      turnDisplay.textContent = playerO;
-      currentPlayer++;
-      checkWin();
+        advice.textContent = "";
+        boardArray[clickedRow-1][clickedColumn-1] = playerX;
+        clickedSquare.textContent = playerX;
+        currentPlayer++;
+        checkWin();
+        turnDisplay.textContent = playerO;
     } else if (clickedSquare.textContent == "" && currentPlayer % 2 == 0) {
-      advice.textContent = "";
-      boardArray[clickedRow-1][clickedColumn-1] = playerO;
-      clickedSquare.textContent = playerO;
-      turnDisplay.textContent = playerX;
-      currentPlayer++;
-      checkWin();
+        advice.textContent = "";
+        boardArray[clickedRow-1][clickedColumn-1] = playerO;
+        clickedSquare.textContent = playerO;
+        currentPlayer++;
+        checkWin();
+        turnDisplay.textContent = playerX;
     } else {
         advice.textContent = "You can't play a square that's already been played.";
     }
@@ -72,17 +72,26 @@ function handleReset() {
     turnDisplay.textContent = playerX;
     result.textContent = "";
     currentPlayer = 1;
+    modal.style.display = "none";
 }
   
 resetButton.addEventListener('click', handleReset);
 
-// updated checkWin to loop so it's tidier 
+// updated checkWin to loop so it's tidier
+
+function showModal() {
+    modal.style.display = "block";
+}
 
 function checkWin() {
     // if statement to manually check diagonals within boardArray
     var centralPlayer = boardArray[1][1];
     if ((centralPlayer !== "") && ((centralPlayer == boardArray[0][0] && centralPlayer == boardArray[2][2]) || (centralPlayer == boardArray[0][2] && centralPlayer == boardArray[2][0]))) {
-        result.textContent = `${centralPlayer} ${WIN_MESSAGE}`;
+        showModal();
+        result.innerHTML = `${centralPlayer} ${WIN_MESSAGE}`;
+    } else if (currentPlayer == 10) {
+        showModal();
+        result.innerHTML = DRAW_MESSAGE;
     }
     // for loop to check horizontally and vertically (i & j switch)
     for (let i = 0; i < boardArray.length; i++) {
@@ -96,25 +105,29 @@ function checkWin() {
             if (checkBoardHorizontal == playerX) {
                 xCountHorizontal++;
                 if (xCountHorizontal == 3) {
-                    result.textContent = `${playerX} ${WIN_MESSAGE}`;
+                    showModal();
+                    result.innerHTML = `${playerX} ${WIN_MESSAGE}`;
                     return;
                 }
             } else if (checkBoardHorizontal == playerO) {
                 oCountHorizontal++;
                 if (oCountHorizontal == 3) {
-                    result.textContent = `${playerO} ${WIN_MESSAGE}`;
+                    showModal();
+                    result.innerHTML = `${playerO} ${WIN_MESSAGE}`;
                     return;
                 }
             } if (checkBoardVertical == playerX) {
                 xCountVertical++;
                 if (xCountVertical == 3) {
-                    result.textContent = `${playerX} ${WIN_MESSAGE}`;
+                    showModal();
+                    result.innerHTML = `${playerX} ${WIN_MESSAGE}`;
                     return;
                 }
             } else if (checkBoardVertical == playerO) {
                 oCountVertical++;
                 if (oCountVertical == 3) {
-                    result.textContent = `${playerO} ${WIN_MESSAGE}`;
+                    showModal();
+                    result.innerHTML = `${playerO} ${WIN_MESSAGE}`;
                     return;
                 }
             }
