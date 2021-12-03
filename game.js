@@ -11,14 +11,17 @@ var turnDisplay = document.querySelector('.turn');
 var advice = document.querySelector('#advice');
 var resetButton = document.querySelector('#reset-btn');
 
-//function to handle flow of the game, change player turn / playing of squares + eventListener loop for all divs clicked. Player handling idea: click adds 1 to player count and odd / even changes player.
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+
 
 // eventListener for all divs
 for (let i = 0; i < allBoxes.length; i++) {
     allBoxes[i].addEventListener('click', handleClick)
 }
 
-// creating an array that takes in user inputs as well, this might help for win checking later on
+// creating an array that takes in user inputs as well, for checking winner later
 var boardArray = [
     ["", "", ""],
     ["", "", ""],
@@ -32,26 +35,26 @@ result.textContent = "";
 
 function handleClick(event) {
     let clickedSquare = event.target;
-    //Using datasets to get 'coordinates' with each click
+    // Using datasets to get 'coordinates' with each click
     let clickedRow = Number(clickedSquare.dataset.row);
     let clickedColumn = Number(clickedSquare.dataset.column);
-    // user inputs - player 1 = 2 and player 2 = 5. THis allows no common denominators and we can calculate sum of array later on
     if (clickedSquare.textContent == "" && currentPlayer % 2 !== 0) {
-      advice.textContent = ""
+      advice.textContent = "";
+      
       boardArray[clickedRow-1][clickedColumn-1] = playerX;
       clickedSquare.textContent = playerX;
       turnDisplay.textContent = playerO;
       currentPlayer++;
       checkWin();
     } else if (clickedSquare.textContent == "" && currentPlayer % 2 == 0) {
-      advice.textContent = ""
+      advice.textContent = "";
       boardArray[clickedRow-1][clickedColumn-1] = playerO;
       clickedSquare.textContent = playerO;
       turnDisplay.textContent = playerX;
       currentPlayer++;
       checkWin();
     } else {
-        advice.textContent = "You can't play a square that's already been played."
+        advice.textContent = "You can't play a square that's already been played.";
     }
 }
 
@@ -73,37 +76,48 @@ function handleReset() {
   
 resetButton.addEventListener('click', handleReset);
 
-// will need a function to handle win checking and declare a winner or tie. Could be a bunch of if/if else statements nut will be long. Neither user can win until turn 5 at earliest. 
+// updated checkWin to loop so it's tidier 
 
 function checkWin() {
-    // horizontal wins
-    if (isEqual(boardArray[0][0], boardArray[0][1]) && isEqual(boardArray[0][0], boardArray[0][2])) {
-        result.textContent = `${boardArray[0][0]} wins!`;
-    } else if (isEqual(boardArray[1][0] == boardArray[1][1]) && isEqual(boardArray[1][0], boardArray[1][2])) {
-        result.textContent = `${boardArray[1][0]} wins!`;
-    } else if (isEqual(boardArray[2][0], boardArray[2][1]) && isEqual(boardArray[2][0], boardArray[2][2])) {
-        result.textContent = `${boardArray[2][0]} wins!`;
-    // vertical wins
-    } else if (isEqual(boardArray[0][0], boardArray[1][0]) && isEqual(boardArray[0][0], boardArray[2][0])) {
-        result.textContent = `${boardArray[0][0]} wins!`;
-    } else if (isEqual(boardArray[0][1], boardArray[1][1]) && isEqual(boardArray[0][1], boardArray[2][1])) {
-        result.textContent = `${boardArray[0][1]} wins!`;
-    } else if (isEqual(boardArray[0][2], boardArray[1][2]) && isEqual(boardArray[0][2], boardArray[2][2])) {
-        result.textContent = `${boardArray[0][2]} wins!`;
-    // diagonal wins
-    } else if (isEqual(boardArray[0][0], boardArray[1][1]) && isEqual(boardArray[0][0], boardArray[2][2])) {
-        result.textContent = `${boardArray[0][0]} wins!`;
-    } else if (isEqual(boardArray[0][2], boardArray[1][1]) && isEqual(boardArray[0][2], boardArray[2][0])) {
-        result.textContent = `${boardArray[0][2]} wins!`;
-    } else if (currentPlayer == 10) {
-        result.textContent = "It's a draw."
+    // if statement to manually check diagonals within boardArray
+    var centralPlayer = boardArray[1][1];
+    if ((centralPlayer !== "") && ((centralPlayer == boardArray[0][0] && centralPlayer == boardArray[2][2]) || (centralPlayer == boardArray[0][2] && centralPlayer == boardArray[2][0]))) {
+        result.textContent = `${centralPlayer} ${WIN_MESSAGE}`;
     }
-}
-
-// function to ignore empty values in boardArray for if statements
-function isEqual(val1, val2) {
-    if (val1 == "" || val2 == "") {
-        return false;
+    // for loop to check horizontally and vertically (i & j switch)
+    for (let i = 0; i < boardArray.length; i++) {
+        let xCountHorizontal = 0;
+        let oCountHorizontal = 0;
+        let xCountVertical = 0;
+        let oCountVertical = 0;
+        for (let j = 0; j < boardArray[0].length; j++) {
+            var checkBoardHorizontal = boardArray[i][j];
+            var checkBoardVertical = boardArray[j][i];
+            if (checkBoardHorizontal == playerX) {
+                xCountHorizontal++;
+                if (xCountHorizontal == 3) {
+                    result.textContent = `${playerX} ${WIN_MESSAGE}`;
+                    return;
+                }
+            } else if (checkBoardHorizontal == playerO) {
+                oCountHorizontal++;
+                if (oCountHorizontal == 3) {
+                    result.textContent = `${playerO} ${WIN_MESSAGE}`;
+                    return;
+                }
+            } if (checkBoardVertical == playerX) {
+                xCountVertical++;
+                if (xCountVertical == 3) {
+                    result.textContent = `${playerX} ${WIN_MESSAGE}`;
+                    return;
+                }
+            } else if (checkBoardVertical == playerO) {
+                oCountVertical++;
+                if (oCountVertical == 3) {
+                    result.textContent = `${playerO} ${WIN_MESSAGE}`;
+                    return;
+                }
+            }
+        }
     }
-    return val1 == val2;
 }

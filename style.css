@@ -1,10 +1,6 @@
 * {
-    /*   border: 1px solid red; */
-      box-sizing: border-box;
-    }
-    
-    body {
       font-family: 'Permanent Marker', cursive;
+      box-sizing: border-box;
     }
     
     h1 {
@@ -36,6 +32,14 @@
       cursor: pointer;
       border: 5px dotted grey;
     }
+
+    .playerX {
+      color: green;
+    }
+
+    .playerO {
+      color: red;
+    }
     
     .game-result {
         text-align: center;
@@ -51,6 +55,7 @@
     }
     
     #reset-btn {
-      width: 100px;
+      width: 150px;
       height: 35px;
+      background: orange;
     }
