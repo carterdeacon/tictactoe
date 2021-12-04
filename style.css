@@ -44,9 +44,10 @@
     }
     
     .game-result {
-        text-align: center;
-        font-size: 72px;
-        padding: 100px 0 50px 0;
+      text-align: center;
+      font-size: 64px;
+      padding: 30px 0 10px 0;
+      margin: 0 auto;
     }
     
     #advice {
@@ -56,12 +57,13 @@
     
     .button-wrapper {
       text-align: center;
+      position: relative;
     }
     
     #reset-btn {
-      width: 20%;
-      height: 10%;
-      font-size: 26px;
+      width: 140px;
+      height: 45px;
+      font-size: 20px;
       background: #E7F59E;
       cursor: pointer;
     }
@@ -73,8 +75,8 @@
   z-index: 1; /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  width: 100vw; /* Full width */
+  height: 100vh; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
@@ -83,16 +85,18 @@
 /* Modal Content/Box */
 .modal-content {
   background-color: #E0EDC5;
+  justify-content: center;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-  height: 35%;
+  width: 60vw; /* Could be more or less, depending on screen size */
+  height: 35vh;
 }
 
 .modal-header {
   background-color: #92AA83;
-  width: 100%;
-  margin: 0 0 0 0;
-  height: 90%;
+  display: block;
+  width: 55vw;
+  height: 30vh;
+  margin: 0 auto;
 }
