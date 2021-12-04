@@ -20,18 +20,46 @@
       margin: 0 0 0 0;
     }
     
+    .score-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0 0 0;
+    }
+
+    .xScore, .oScore {
+      font-size: 16px;
+      margin: 2px 0 0 0;
+    }
+
+    .xScore, .xName {
+      border-right: 1px solid lightgrey;
+    }
+
+    .xName, .oName {
+      font-size: 12px;
+      margin: 0 0 2px 0;
+    }
+
+    .scoreboard {
+      border: 2px solid grey;
+      width: 10vw;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-radius: 5px;
+    }
+    
     .board {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      width: 450px;
-      margin: 75px auto;
+      width: 45vw;
+      margin: 3vh auto;
     }
     
     .square {
-      height: 150px;
-      width: 150px;
-      font-size: 125px;
-      line-height: 125px;
+      height: 15vw;
+      width: 15vw;
+      font-size: 12.5vw;
+      line-height: 12.5vw;
       text-align: center;
       cursor: pointer;
     }
@@ -57,12 +85,11 @@
       border-right: 2px dotted grey;
     }
 
-    .X {
+    .X, .xName {
       color: #92AA83;
     }
 
-    .O {
-      /* color: #B0BEA9; */
+    .O, .oName {
       color:black;
     }
     
@@ -77,6 +104,7 @@
         text-align: center;
         padding: 0 0 0 0;
         margin: -25px 0 0 0;
+        overflow: hidden;
     }
     
     .draw {
@@ -148,22 +176,6 @@
 
   .O {
     color: black;
-  }
-  
-  .board {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    width: 390px;
-    margin: 0 auto;
-  }
-  
-  .square {
-    height: 130px;
-    width: 130px;
-    font-size: 110px;
-    line-height: 110px;
-    text-align: center;
-    cursor: pointer;
   }
 
   .game-result {

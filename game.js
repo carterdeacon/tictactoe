@@ -10,6 +10,9 @@ var result = document.querySelector('.game-result');
 var turnDisplay = document.querySelector('.turn');
 var advice = document.querySelector('#advice');
 var resetButton = document.querySelector('#reset-btn');
+var xScore = document.querySelector('.xScore');
+var oScore = document.querySelector('.oScore');
+
 
 // modal variables
 var modal = document.getElementById("myModal");
@@ -95,6 +98,7 @@ function checkWin() {
     if ((centralPlayer !== "") && ((centralPlayer == boardArray[0][0] && centralPlayer == boardArray[2][2]) || (centralPlayer == boardArray[0][2] && centralPlayer == boardArray[2][0]))) {
         showModal();
         result.innerHTML = `${centralPlayer} ${WIN_MESSAGE}`;
+        handleScore();
     } else if (currentPlayer == 10) {
         showModal();
         result.innerHTML = DRAW_MESSAGE;
@@ -113,6 +117,7 @@ function checkWin() {
                 if (xCountHorizontal == 3) {
                     showModal();
                     result.innerHTML = `${PLAYER_X} ${WIN_MESSAGE}`;
+                    handleScore();
                     return;
                 }
             } else if (checkBoardHorizontal == PLAYER_O) {
@@ -120,6 +125,7 @@ function checkWin() {
                 if (oCountHorizontal == 3) {
                     showModal();
                     result.innerHTML = `${PLAYER_O} ${WIN_MESSAGE}`;
+                    handleScore();
                     return;
                 }
             } if (checkBoardVertical == PLAYER_X) {
@@ -127,6 +133,7 @@ function checkWin() {
                 if (xCountVertical == 3) {
                     showModal();
                     result.innerHTML = `${PLAYER_X} ${WIN_MESSAGE}`;
+                    handleScore();
                     return;
                 }
             } else if (checkBoardVertical == PLAYER_O) {
@@ -134,9 +141,19 @@ function checkWin() {
                 if (oCountVertical == 3) {
                     showModal();
                     result.innerHTML = `${PLAYER_O} ${WIN_MESSAGE}`;
+                    handleScore();
                     return;
                 }
             }
         }
+    }
+}
+
+function handleScore() {
+    let winner = result.innerHTML[0];
+    if (winner == 'O') {
+        oScore.innerText = Number(oScore.innerText) + 1;
+    } else if (winner == 'X') {
+        xScore.innerText = Number(xScore.innerText) + 1;
     }
 }
