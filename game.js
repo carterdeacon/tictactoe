@@ -2,7 +2,7 @@
 const PLAYER_X = "X";
 const PLAYER_O = "O";
 const WIN_MESSAGE = " wins!";
-const DRAW_MESSAGE = "It's a draw. Nobody wins."
+const DRAW_MESSAGE = "It's a draw."
 
 // Variables for gameplay
 var allBoxes = document.querySelectorAll('.square');
