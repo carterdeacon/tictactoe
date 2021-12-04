@@ -10,12 +10,14 @@
     h1 {
       text-align: center;
       font-size: 48px;
+      margin: 5px;
     }
     
     h4 {
       text-align: center;
       font-size: 34px;
       color: grey;
+      margin: 0 0 0 0;
     }
     
     .board {
@@ -32,15 +34,36 @@
       line-height: 125px;
       text-align: center;
       cursor: pointer;
-      border: 2px solid grey;
     }
 
-    .playerX {
+    /* Borders for squares */
+    #one, #two, #three {
+      border-bottom: 2px dotted grey;
+    }
+
+    #one, #two {
+      border-right: 2px dotted grey;
+    }
+
+    #four, #five, #six {
+      border-bottom: 2px dotted grey;
+    }
+
+    #four, #five {
+      border-right: 2px dotted grey;
+    }
+
+    #seven, #eight {
+      border-right: 2px dotted grey;
+    }
+
+    .X {
       color: #92AA83;
     }
 
-    .playerO {
-      color: #B0BEA9;
+    .O {
+      /* color: #B0BEA9; */
+      color:black;
     }
     
     .game-result {
@@ -53,8 +76,13 @@
     #advice {
         text-align: center;
         padding: 0 0 0 0;
+        margin: -25px 0 0 0;
     }
     
+    .draw {
+      font-size: 42px;
+    }
+
     .button-wrapper {
       text-align: center;
       position: relative;
@@ -99,4 +127,101 @@
   width: 55vw;
   height: 30vh;
   margin: 0 auto;
+}
+
+@media (max-width: 800px) {
+  h1 {
+    text-align: center;
+    font-size: 32px;
+  }
+  
+  h4 {
+    text-align: center;
+    font-size: 20px;
+    color: grey;
+    margin: 10px 0 10px 0;
+  }
+
+  .X {
+    color: #92AA83;
+  }
+
+  .O {
+    color: black;
+  }
+  
+  .board {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 390px;
+    margin: 0 auto;
+  }
+  
+  .square {
+    height: 130px;
+    width: 130px;
+    font-size: 110px;
+    line-height: 110px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .game-result {
+    text-align: center;
+    font-size: 40px;
+    padding: 30px 0 10px 0;
+    margin: 0 auto;
+  }
+  
+  #advice {
+      text-align: center;
+      padding: 0 0 0 0;
+      animation-duration: 1s;
+      margin: 25px 0 0 0;
+  }
+  
+  .button-wrapper {
+    text-align: center;
+    position: relative;
+  }
+  
+  #reset-btn {
+    width: 130px;
+    height: 50px;
+    font-size: 16px;
+    background: #E7F59E;
+    cursor: pointer;
+  }
+
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100vw; /* Full width */
+    height: 100vh; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #E0EDC5;
+    justify-content: center;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 10px;
+    border: 1px solid #888;
+    width: 60vw; /* Could be more or less, depending on screen size */
+    height: 35vh;
+  }
+  
+  .modal-header {
+    background-color: #92AA83;
+    display: block;
+    width: 55vw;
+    height: 30vh;
+    margin: 0 auto;
+  }
 }

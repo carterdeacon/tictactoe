@@ -17,24 +17,23 @@
 <body>
     <header>
         <h1>Tic / Tac / Toe</h1>
-        <h4>Current turn: <span class="turn playerX"></span><h4>
+        <h4>Current turn: <span class="turn"></span><h4>
       </header>
     <!--   Board displayed - Row and Column data to hopefully use as coordinates later   -->
       <div class="board">
-        <div data-row="1" data-column="1" class="square"></div>
-        <div data-row="1" data-column="2" class="square"></div>
-        <div data-row="1" data-column="3" class="square"></div>
-        <div data-row="2" data-column="1" class="square"></div>
-        <div data-row="2" data-column="2" class="square"></div>
-        <div data-row="2" data-column="3" class="square"></div>
-        <div data-row="3" data-column="1" class="square"></div>
-        <div data-row="3" data-column="2" class="square"></div>
-        <div data-row="3" data-column="3" class="square"></div>
+        <div data-row="1" data-column="1" class="square" id="one"></div>
+        <div data-row="1" data-column="2" class="square" id="two"></div>
+        <div data-row="1" data-column="3" class="square" id="three"></div>
+        <div data-row="2" data-column="1" class="square" id="four"></div>
+        <div data-row="2" data-column="2" class="square" id="five"></div>
+        <div data-row="2" data-column="3" class="square" id="six"></div>
+        <div data-row="3" data-column="1" class="square" id="seven"></div>
+        <div data-row="3" data-column="2" class="square" id="eight"></div>
+        <div data-row="3" data-column="3" class="square" id="nine"></div>
       </div>
       <p id="advice"> </p>
 
 <!-- Modal -->
-animate__bounceInDown
 <div id="myModal" class="modal">
   <div class="animate__animated animate__bounceInDown modal-content">
     <div class="modal-header">
@@ -45,9 +44,7 @@ animate__bounceInDown
       </div>
     </div>
   </div>
-
 </div>
-
     <script src="game.js"></script>
 </body>
 </html>

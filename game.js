@@ -1,8 +1,7 @@
 // Variables for players
-let playerX = "X";
-let playerO = "O";
-
-const WIN_MESSAGE = "wins!";
+const PLAYER_X = "X";
+const PLAYER_O = "O";
+const WIN_MESSAGE = " wins!";
 const DRAW_MESSAGE = "It's a draw. Nobody wins."
 
 // Variables for gameplay
@@ -31,7 +30,7 @@ var boardArray = [
 
 // starting with odd player
 let currentPlayer = 1;
-turnDisplay.textContent = playerX;
+turnDisplay.textContent = PLAYER_X;
 result.textContent = "";
 
 function handleClick(event) {
@@ -40,22 +39,28 @@ function handleClick(event) {
     let clickedRow = Number(clickedSquare.dataset.row);
     let clickedColumn = Number(clickedSquare.dataset.column);
     if (clickedSquare.textContent == "" && currentPlayer % 2 !== 0) {
-        advice.textContent = "";
-        boardArray[clickedRow-1][clickedColumn-1] = playerX;
-        clickedSquare.textContent = playerX;
-        currentPlayer++;
+        clickedSquare.classList.add(PLAYER_X);
+        handleTurn();
+        boardArray[clickedRow-1][clickedColumn-1] = PLAYER_X  ;
+        clickedSquare.textContent = PLAYER_X;
         checkWin();
-        turnDisplay.textContent = playerO;
+        turnDisplay.textContent = PLAYER_O;
     } else if (clickedSquare.textContent == "" && currentPlayer % 2 == 0) {
-        advice.textContent = "";
-        boardArray[clickedRow-1][clickedColumn-1] = playerO;
-        clickedSquare.textContent = playerO;
-        currentPlayer++;
+        handleTurn();
+        boardArray[clickedRow-1][clickedColumn-1] = PLAYER_O;
+        clickedSquare.textContent = PLAYER_O;
         checkWin();
-        turnDisplay.textContent = playerX;
+        turnDisplay.textContent = PLAYER_X;
     } else {
+        advice.classList.add('animate__animated', 'animate__shakeX');
         advice.textContent = "You can't play a square that's already been played.";
     }
+}
+
+function handleTurn() {
+    advice.textContent = "";
+    advice.classList.remove('animate__animated', 'animate__shakeX');
+    currentPlayer++;
 }
 
 // function to handle reset button, reset playercount, clear the board (loop through divs) and restart the game + eventListener, also loops through and reset the board array  
@@ -69,15 +74,16 @@ function handleReset() {
         boardArray[j][k] = "";
         }
     }
-    turnDisplay.textContent = playerX;
+    for (let i = 0; i < allBoxes.length; i++) {
+        allBoxes[i].className = "square";
+    }
+    turnDisplay.textContent = PLAYER_X;
     result.textContent = "";
     currentPlayer = 1;
     modal.style.display = "none";
 }
   
 resetButton.addEventListener('click', handleReset);
-
-// updated checkWin to loop so it's tidier
 
 function showModal() {
     modal.style.display = "block";
@@ -102,32 +108,32 @@ function checkWin() {
         for (let j = 0; j < boardArray[0].length; j++) {
             var checkBoardHorizontal = boardArray[i][j];
             var checkBoardVertical = boardArray[j][i];
-            if (checkBoardHorizontal == playerX) {
+            if (checkBoardHorizontal == PLAYER_X) {
                 xCountHorizontal++;
                 if (xCountHorizontal == 3) {
                     showModal();
-                    result.innerHTML = `${playerX} ${WIN_MESSAGE}`;
+                    result.innerHTML = `${PLAYER_X} ${WIN_MESSAGE}`;
                     return;
                 }
-            } else if (checkBoardHorizontal == playerO) {
+            } else if (checkBoardHorizontal == PLAYER_O) {
                 oCountHorizontal++;
                 if (oCountHorizontal == 3) {
                     showModal();
-                    result.innerHTML = `${playerO} ${WIN_MESSAGE}`;
+                    result.innerHTML = `${PLAYER_O} ${WIN_MESSAGE}`;
                     return;
                 }
-            } if (checkBoardVertical == playerX) {
+            } if (checkBoardVertical == PLAYER_X) {
                 xCountVertical++;
                 if (xCountVertical == 3) {
                     showModal();
-                    result.innerHTML = `${playerX} ${WIN_MESSAGE}`;
+                    result.innerHTML = `${PLAYER_X} ${WIN_MESSAGE}`;
                     return;
                 }
-            } else if (checkBoardVertical == playerO) {
+            } else if (checkBoardVertical == PLAYER_O) {
                 oCountVertical++;
                 if (oCountVertical == 3) {
                     showModal();
-                    result.innerHTML = `${playerO} ${WIN_MESSAGE}`;
+                    result.innerHTML = `${PLAYER_O} ${WIN_MESSAGE}`;
                     return;
                 }
             }
