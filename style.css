@@ -51,15 +51,15 @@
     .board {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      width: 45vw;
+      width: 60vh;
       margin: 3vh auto;
     }
     
     .square {
-      height: 15vw;
-      width: 15vw;
-      font-size: 12.5vw;
-      line-height: 12.5vw;
+      height: 20vh;
+      width: 20vh;
+      font-size: 17vh;
+      line-height: 17vh;
       text-align: center;
       cursor: pointer;
     }
