@@ -1,6 +1,15 @@
 // Variables for players
-const PLAYER_X = "X";
-const PLAYER_O = "O";
+let PLAYER_X = {
+    name: "X",
+    dumbCounter: 0,
+    isTurn: false,
+};
+let PLAYER_O = {
+    name: "O",
+    dumbCounter: 0,
+    isTurn: false,
+};
+
 const WIN_MESSAGE = " wins!";
 const DRAW_MESSAGE = "It's a draw."
 
@@ -31,39 +40,79 @@ var boardArray = [
     ["", "", ""]
 ];
 
-// starting with odd player
 let currentPlayer = 1;
-turnDisplay.textContent = PLAYER_X;
-result.textContent = "";
+
+function initialise() {
+    turnDisplay.textContent = PLAYER_X.name;
+    PLAYER_X.isTurn = true;
+    result.textContent = "";
+}
+
+initialise();
 
 function handleClick(event) {
     let clickedSquare = event.target;
+    if (clickedSquare.textContent !== "") {
+        idiotCounter();
+        return;
+    }
+    currentPlayer++;
     // Using datasets to get 'coordinates' with each click
     let clickedRow = Number(clickedSquare.dataset.row);
     let clickedColumn = Number(clickedSquare.dataset.column);
-    if (clickedSquare.textContent == "" && currentPlayer % 2 !== 0) {
-        clickedSquare.classList.add(PLAYER_X);
+    if (PLAYER_X.isTurn) {
+        clickedSquare.classList.add(PLAYER_X.name);
         handleTurn();
-        boardArray[clickedRow-1][clickedColumn-1] = PLAYER_X  ;
-        clickedSquare.textContent = PLAYER_X;
+        boardArray[clickedRow-1][clickedColumn-1] = PLAYER_X.name  ;
+        clickedSquare.textContent = PLAYER_X.name;
         checkWin();
-        turnDisplay.textContent = PLAYER_O;
-    } else if (clickedSquare.textContent == "" && currentPlayer % 2 == 0) {
+        turnDisplay.textContent = PLAYER_O.name;
+    } else if (PLAYER_O.isTurn) {
         handleTurn();
-        boardArray[clickedRow-1][clickedColumn-1] = PLAYER_O;
-        clickedSquare.textContent = PLAYER_O;
+        boardArray[clickedRow-1][clickedColumn-1] = PLAYER_O.name;
+        clickedSquare.textContent = PLAYER_O.name;
         checkWin();
-        turnDisplay.textContent = PLAYER_X;
-    } else {
-        advice.classList.add('animate__animated', 'animate__shakeX');
-        advice.textContent = "You can't play a square that's already been played.";
-    }
+        turnDisplay.textContent = PLAYER_X.name;
+    } 
+    PLAYER_X.isTurn = !PLAYER_X.isTurn;
+    PLAYER_O.isTurn = !PLAYER_O.isTurn;
 }
 
 function handleTurn() {
     advice.textContent = "";
     advice.classList.remove('animate__animated', 'animate__shakeX');
-    currentPlayer++;
+}
+
+function idiotCounter() {
+    if (PLAYER_X.isTurn) {
+        handleDumbCounter(++PLAYER_X.dumbCounter);
+    } else if (PLAYER_O.isTurn) {
+        handleDumbCounter(++PLAYER_O.dumbCounter);
+    }
+}
+
+function handleDumbCounter(dumbCounter) {
+    advice.classList.add('animate__animated', 'animate__shakeX');
+    switch (true) {
+        case (dumbCounter >= 3 && dumbCounter < 5):
+            advice.textContent = "Okay. Just play the game...";
+            break;
+        case (dumbCounter >= 5 && dumbCounter < 7):
+            advice.textContent = "Pick a damn square!";
+            break;
+        case (dumbCounter >= 7 && dumbCounter < 9):
+            advice.textContent = "Alright f****r. Move along...";
+            break;
+        case (dumbCounter >= 9 && dumbCounter < 15):
+            advice.textContent = "Don't you have something better to be doing? Of course not. You're sad and alone.";
+            break;
+        case (dumbCounter >= 15):
+            advice.textContent = "Repeatedly clicking a square in a game of TicTacToe? Is this really how you want to spend your miserable life?";
+            break;
+        default:
+            advice.textContent = "You can't play a square that's already been played.";
+            break;
+    }
 }
 
 // function to handle reset button, reset playercount, clear the board (loop through divs) and restart the game + eventListener, also loops through and reset the board array  
@@ -80,9 +129,8 @@ function handleReset() {
     for (let i = 0; i < allBoxes.length; i++) {
         allBoxes[i].className = "square";
     }
-    turnDisplay.textContent = PLAYER_X;
+    turnDisplay.textContent = PLAYER_X.name;
     result.textContent = "";
-    currentPlayer = 1;
     modal.style.display = "none";
 }
   
@@ -112,35 +160,35 @@ function checkWin() {
         for (let j = 0; j < boardArray[0].length; j++) {
             var checkBoardHorizontal = boardArray[i][j];
             var checkBoardVertical = boardArray[j][i];
-            if (checkBoardHorizontal == PLAYER_X) {
+            if (checkBoardHorizontal == PLAYER_X.name) {
                 xCountHorizontal++;
                 if (xCountHorizontal == 3) {
                     showModal();
-                    result.innerHTML = `${PLAYER_X} ${WIN_MESSAGE}`;
+                    result.innerHTML = `${PLAYER_X.name} ${WIN_MESSAGE}`;
                     handleScore();
                     return;
                 }
-            } else if (checkBoardHorizontal == PLAYER_O) {
+            } else if (checkBoardHorizontal == PLAYER_O.name) {
                 oCountHorizontal++;
                 if (oCountHorizontal == 3) {
                     showModal();
-                    result.innerHTML = `${PLAYER_O} ${WIN_MESSAGE}`;
+                    result.innerHTML = `${PLAYER_O.name} ${WIN_MESSAGE}`;
                     handleScore();
                     return;
                 }
-            } if (checkBoardVertical == PLAYER_X) {
+            } if (checkBoardVertical == PLAYER_X.name) {
                 xCountVertical++;
                 if (xCountVertical == 3) {
                     showModal();
-                    result.innerHTML = `${PLAYER_X} ${WIN_MESSAGE}`;
+                    result.innerHTML = `${PLAYER_X.name} ${WIN_MESSAGE}`;
                     handleScore();
                     return;
                 }
-            } else if (checkBoardVertical == PLAYER_O) {
+            } else if (checkBoardVertical == PLAYER_O.name) {
                 oCountVertical++;
                 if (oCountVertical == 3) {
                     showModal();
-                    result.innerHTML = `${PLAYER_O} ${WIN_MESSAGE}`;
+                    result.innerHTML = `${PLAYER_O.name} ${WIN_MESSAGE}`;
                     handleScore();
                     return;
                 }
