@@ -62,13 +62,11 @@ function handleClick(event) {
     let clickedColumn = Number(clickedSquare.dataset.column);
     if (PLAYER_X.isTurn) {
         clickedSquare.classList.add(PLAYER_X.name);
-        handleTurn();
         boardArray[clickedRow-1][clickedColumn-1] = PLAYER_X.name  ;
         clickedSquare.textContent = PLAYER_X.name;
         checkWin();
         turnDisplay.textContent = PLAYER_O.name;
     } else if (PLAYER_O.isTurn) {
-        handleTurn();
         boardArray[clickedRow-1][clickedColumn-1] = PLAYER_O.name;
         clickedSquare.textContent = PLAYER_O.name;
         checkWin();
@@ -76,11 +74,6 @@ function handleClick(event) {
     } 
     PLAYER_X.isTurn = !PLAYER_X.isTurn;
     PLAYER_O.isTurn = !PLAYER_O.isTurn;
-}
-
-function handleTurn() {
-    advice.textContent = "";
-    advice.classList.remove('animate__animated', 'animate__shakeX');
 }
 
 function idiotCounter() {
@@ -132,6 +125,9 @@ function handleReset() {
     turnDisplay.textContent = PLAYER_X.name;
     result.textContent = "";
     modal.style.display = "none";
+    currentPlayer = 1;
+    PLAYER_X.isTurn = true;
+    PLAYER_O.isTurn = false;
 }
   
 resetButton.addEventListener('click', handleReset);
