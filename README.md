@@ -1,5 +1,8 @@
 # TicTacToe Game (Project 1)
 
+### Link to game: 
+https://carterdeacon.github.io/tictactoe/ 
+
 ## File Overview 
 `index.html`
 - contains header, scoreboard to track score between games, 9 divs which come together to display board and modal conent (hidden by default).
