@@ -1,5 +1,7 @@
 # TicTacToe Game (Project 1)
 
+![Alt Text](images/tictactoe.gif)
+
 ### Link to game: 
 https://carterdeacon.github.io/tictactoe/ 
 

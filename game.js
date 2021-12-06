@@ -124,6 +124,7 @@ function handleReset() {
     }
     turnDisplay.textContent = PLAYER_X.name;
     result.textContent = "";
+    advice.textContent = "";
     modal.style.display = "none";
     currentPlayer = 1;
     PLAYER_X.isTurn = true;
